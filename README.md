@@ -3,7 +3,7 @@
 ![Release](https://img.shields.io/github/release/eozer/fiber_ldap.svg)
 ![Test](https://github.com/eozer/fiber_ldap/workflows/Test/badge.svg)
 ![Security](https://github.com/eozer/fiber_ldap/workflows/Security/badge.svg)
-![Linter](https://github.com/eozer/fiber_ldap/workflows/Linter/badge.svg)
+![Linter](https://github.com/eozer/fiber_ldap/workflows/golangci-lint/badge.svg)
 
 LDAP authentication middleware for [Fiber](https://github.com/gofiber/fiber).
 It calls the next handler for valid credentials and 401 Unauthorized for other cases.
