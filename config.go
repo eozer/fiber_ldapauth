@@ -138,18 +138,20 @@ var defaultCredentialsLookup = func(c *fiber.Ctx, usernameField, passwordField s
 	}
 	// From request body
 	// NOTE: One must use "username" and "password" fields as keys.
-	p := &struct {
-		Username string `json:"username" xml:"username" form:"username"`
-		Password string `json:"password" xml:"password" form:"password"`
-	}{}
-	err = c.BodyParser(p)
-	if err != nil {
-		return "", "", err
-	}
-	username = p.Username
-	password = p.Password
-	if username != "" && password != "" {
-		return username, password, nil
+	if c.Body() != nil {
+		p := &struct {
+			Username string `json:"username" xml:"username" form:"username"`
+			Password string `json:"password" xml:"password" form:"password"`
+		}{}
+		err = c.BodyParser(p)
+		if err != nil {
+			return "", "", err
+		}
+		username = p.Username
+		password = p.Password
+		if username != "" && password != "" {
+			return username, password, nil
+		}
 	}
 	// From request headers
 	reqh := c.GetReqHeaders()

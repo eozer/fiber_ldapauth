@@ -150,6 +150,59 @@ func TestBasicAuth(t *testing.T) {
 	}
 }
 
+func TestWrongCredentialsFromBasicAuth(t *testing.T) {
+	for k := range testServers {
+		if k == "freeipaBindOnly" {
+			t.Skip()
+		}
+		app := fiber.New()
+		app.Use(New(Config{
+			URL:             testServers[k]["URL"],
+			BindDN:          testServers[k]["BindDN"],
+			BindCredentials: testServers[k]["BindCredentials"],
+			SearchBase:      testServers[k]["SearchBase"],
+			SearchFilter:    testServers[k]["SearchFilter"],
+		}))
+		app.Get("/testauth", helloworldHandler)
+		req := httptest.NewRequest("GET", "/testauth", nil)
+		basicstr := fmt.Sprintf("Basic %s:%s", "wrongusername", "wrongpassword")
+		enc := base64.StdEncoding.EncodeToString([]byte(basicstr))
+		req.Header.Set("Authorization", enc)
+		resp, err := app.Test(req, -1)
+		if err != nil {
+			t.Fatalf(`%s: %s`, t.Name(), err)
+		}
+		if resp.StatusCode != 401 {
+			t.Errorf("Expected 401, got %d status code.", resp.StatusCode)
+		}
+	}
+}
+
+func TestMissingCredentials(t *testing.T) {
+	for k := range testServers {
+		if k == "freeipaBindOnly" {
+			t.Skip()
+		}
+		app := fiber.New()
+		app.Use(New(Config{
+			URL:             testServers[k]["URL"],
+			BindDN:          testServers[k]["BindDN"],
+			BindCredentials: testServers[k]["BindCredentials"],
+			SearchBase:      testServers[k]["SearchBase"],
+			SearchFilter:    testServers[k]["SearchFilter"],
+		}))
+		app.Get("/testauth", helloworldHandler)
+		req := httptest.NewRequest("GET", "/testauth", nil)
+		resp, err := app.Test(req, -1)
+		if err != nil {
+			t.Fatalf(`%s: %s`, t.Name(), err)
+		}
+		if resp.StatusCode != 401 {
+			t.Errorf("Expected 401, got %d status code.", resp.StatusCode)
+		}
+	}
+}
+
 func TestWrongBindCredentials(t *testing.T) {
 	app := fiber.New()
 	app.Use(New(Config{
