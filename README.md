@@ -1,6 +1,5 @@
 # fiber_ldap: LDAP Authentication Middleware
 
-![Release](https://img.shields.io/github/release/eozer/fiber_ldap.svg)
 ![Test](https://github.com/eozer/fiber_ldap/workflows/Test/badge.svg)
 ![Linter](https://github.com/eozer/fiber_ldap/workflows/golangci-lint/badge.svg)
 
