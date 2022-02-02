@@ -142,7 +142,10 @@ var defaultCredentialsLookup = func(c *fiber.Ctx, usernameField, passwordField s
 		Username string `json:"username" xml:"username" form:"username"`
 		Password string `json:"password" xml:"password" form:"password"`
 	}{}
-	c.BodyParser(p)
+	err = c.BodyParser(p)
+	if err != nil {
+		return "", "", err
+	}
 	username = p.Username
 	password = p.Password
 	if username != "" && password != "" {
