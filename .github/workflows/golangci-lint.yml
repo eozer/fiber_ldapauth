@@ -1,0 +1,13 @@
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 7 * * *"
+
+name: golangci-lint
+jobs:
+  Golint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: golangci/golangci-lint-action@v2
