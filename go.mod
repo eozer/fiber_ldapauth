@@ -3,7 +3,7 @@ module github.com/eozer/fiber_ldapauth
 go 1.17
 
 require (
-	github.com/go-ldap/ldap/v3 v3.4.1
+	github.com/go-ldap/ldap/v3 v3.4.2
 	github.com/gofiber/fiber/v2 v2.26.0
 )
 
