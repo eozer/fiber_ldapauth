@@ -10,8 +10,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type ErrorHandlerCallback = func(*fiber.Ctx, error) error
-type ErrorHandler = func(*fiber.Ctx, error, ErrorHandlerCallback) error
+type (
+	ErrorHandlerCallback = func(*fiber.Ctx, error) error
+	ErrorHandler         = func(*fiber.Ctx, error, ErrorHandlerCallback) error
+)
 
 type Config struct {
 	// Next defines a function to skip this middleware when returned true.
